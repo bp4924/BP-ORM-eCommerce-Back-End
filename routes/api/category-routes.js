@@ -1,28 +1,72 @@
-const router = require('express').Router();
-const { Category, Product } = require('../../models');
+const router = require("express").Router();
+const { Category, Product, Tag } = require("../../models");
 
 // The `/api/categories` endpoint
 
-router.get('/', (req, res) => {
-  // find all categories
+// find all categories
+router.get("/", async (req, res) => {
+  try {
+    const getCategoryAllData = await Category.findAll({
+      include: Product,
+    });
+    res.status(200).json(getCategoryAllData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
   // be sure to include its associated Products
 });
 
-router.get('/:id', (req, res) => {
-  // find one category by its `id` value
+// find one category by its `id` value
+router.get("/:id", async (req, res) => {
+  try {
+    const getCategoryById = await Category.findByPk(req.params.id, {
+      include: [{ model: Product, through: Tag }],
+    });
+    res.status(200).json(getCategoryById);
+  } catch (err) {
+    res.status(500).json(err);
+  }
   // be sure to include its associated Products
 });
 
-router.post('/', (req, res) => {
-  // create a new category
+// create a new category
+router.post("/", async (req, res) => {
+  try {
+    const createNewCategory = await Category.create(req.body);
+    req.status(200).json(createNewCategory);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 
-router.put('/:id', (req, res) => {
-  // update a category by its `id` value
+// update a category by its `id` value
+// ><><><><><><><><><><><><><<><><><><><>< Pass in update values ?
+router.put("/:id", async (req, res) => {
+  try {
+    const updateCategoryById = await Category.update(req.body);
+    req.status(200).json(updateCategoryById);
+  } catch (err) {
+    res.status(400).json(err); // <<<<< Is this the correct error code ?
+  }
 });
 
-router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
+// delete a category by its `id` value
+router.delete("/:id", async (req, res) => {
+  try {
+    const deleteCategoryById = await Category.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!deleteCategoryById) {
+      res.status(404).json({ message: "No category found with this ID!" });
+      return;
+    }
+    res.status(200).json(deleteCategoryById);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
