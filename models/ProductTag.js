@@ -12,8 +12,6 @@ ProductTag.init(
       primaryKey: true,
       autoIncrement: true,
     },
-  },
-  {
     product_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -21,8 +19,6 @@ ProductTag.init(
         key: "id",
       },
     },
-  },
-  {
     tag_id: {
       type: DataTypes.INTEGER,
       references: {

@@ -7,13 +7,17 @@ const { Category, Product, Tag } = require("../../models");
 router.get("/", async (req, res) => {
   try {
     const getCategoryAllData = await Category.findAll({
-      include: Product,
+      include: [
+        {
+          model: Product,
+        },
+      ],
     });
+    console.log(getCategoryAllData);
     res.status(200).json(getCategoryAllData);
   } catch (err) {
     res.status(500).json(err);
   }
-  // be sure to include its associated Products
 });
 
 // find one category by its `id` value
@@ -40,13 +44,16 @@ router.post("/", async (req, res) => {
 });
 
 // update a category by its `id` value
-// ><><><><><><><><><><><><><<><><><><><>< Pass in update values ?
 router.put("/:id", async (req, res) => {
   try {
-    const updateCategoryById = await Category.update(req.body);
+    const updateCategoryById = await Category.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
     req.status(200).json(updateCategoryById);
   } catch (err) {
-    res.status(400).json(err); // <<<<< Is this the correct error code ?
+    res.status(500).json(err); // <<<<< Is this the correct error code ?
   }
 });
 
