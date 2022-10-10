@@ -3,33 +3,38 @@ const { Tag, Product, ProductTag } = require("../../models");
 
 // The `/api/tags` endpoint
 
+// find all tags
 router.get("/", async (req, res) => {
-  // find all tags
   try {
     const getTagAllData = await Tag.findAll({
-      include: {
-        model: Product,
-        // attributes?
-      },
+      /*       include: {
+      model: Product,
+      attributes: ['product_name', 'price', 'stock', 'category_id']
+    }
+ */
+      include: [{ model: Product }],
     });
     res.status(200).json(getTagAllData);
   } catch (err) {
     res.status(500).json(err);
   }
-  // be sure to include its associated Product data
 });
 
 // find a single tag by its `id`
 router.get("/:id", async (req, res) => {
   try {
     const getTagById = await Tag.findByPk(req.params.id, {
+      /*       include: {
+        model: Product,
+        attributes: ['product_name', 'price', 'stock', 'category_id']
+      }
+ */
       include: [{ model: Product }],
     });
     res.status(200).json(getTagById);
   } catch (err) {
     res.status(500).json(err);
   }
-  // be sure to include its associated Product data
 });
 
 // create a new tag
@@ -48,7 +53,7 @@ router.put("/:id", async (req, res) => {
     const updateTagById = await Tag.update(req.body);
     req.status(200).json(updateTagById);
   } catch (err) {
-    res.status(400).json(err); // <<<<< Is this the correct error code ?
+    res.status(500).json(err);
   }
 });
 

@@ -6,14 +6,25 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 // find all products
 router.get("/", async (req, res) => {
   try {
-    const getProductAllData = await Product.findByPk({
+    const getProductAllData = await Product.findAll({
+      // attributes: ['id', 'product_name', 'price', 'stock'],
       include: [{ model: Category }, { model: Tag }],
+      /*       include: [
+        {
+          model: Category,
+          attributes: ['category_name']
+        },
+        {
+          model: Tag,
+          attributes: ['tag_name']
+        }
+      ]
+ */
     });
     res.status(200).json(getProductAllData);
   } catch (err) {
     res.status(500).json(err);
   }
-  // be sure to include its associated Category and Tag data
 });
 
 // find a single product by its `id`
@@ -22,27 +33,22 @@ router.get("/:id", async (req, res) => {
     const getProductById = await Product.findByPk(req.params.id, {
       include: [{ model: Category }, { model: Tag }],
     });
+    if (!getProductById) {
+      res.status(404).json({ message: "No product found with this id!" });
+    }
     res.status(200).json(getProductById);
   } catch (err) {
     res.status(500).json(err);
   }
-  // be sure to include its associated Category and Tag data
 });
 
 // create new product
 router.post("/", async (req, res) => {
-  /* req.body should look like this...
-    {
-      product_name: "Basketball",
-      price: 200.00,
-      stock: 3,
-      tagIds: [1, 2, 3, 4]
-    }
-  */
   await Product.create({
     product_name: req.body.product_name,
     price: req.body.price,
     stock: req.body.stock,
+    //     category_id: req.body.category_id,
     tagIds: req.body.tagIds,
   })
     .then((product) => {
@@ -56,7 +62,6 @@ router.post("/", async (req, res) => {
         });
         return ProductTag.bulkCreate(productTagIdArr);
       }
-      // if no product tags, just respond
       res.status(200).json(product);
     })
     .then((productTagIds) => res.status(200).json(productTagIds))
@@ -68,7 +73,6 @@ router.post("/", async (req, res) => {
 
 // update product
 router.put("/:id", async (req, res) => {
-  // update product data
   await Product.update(req.body, {
     where: {
       id: req.params.id,
@@ -103,7 +107,6 @@ router.put("/:id", async (req, res) => {
     })
     .then((updatedProductTags) => res.json(updatedProductTags))
     .catch((err) => {
-      // console.log(err);
       res.status(400).json(err);
     });
 });
