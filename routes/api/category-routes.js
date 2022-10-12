@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Category, Product, Tag } = require("../../models");
+const { Category, Product } = require("../../models");
 
 // The `/api/categories` endpoint
 
@@ -7,46 +7,56 @@ const { Category, Product, Tag } = require("../../models");
 router.get("/", async (req, res) => {
   try {
     const getCategoryAllData = await Category.findAll({
-      include: Product,
+      include: [
+        {
+          model: Product,
+        },
+      ],
     });
     res.status(200).json(getCategoryAllData);
   } catch (err) {
     res.status(500).json(err);
   }
-  // be sure to include its associated Products
 });
 
 // find one category by its `id` value
 router.get("/:id", async (req, res) => {
   try {
     const getCategoryById = await Category.findByPk(req.params.id, {
-      include: [{ model: Product, through: Tag }],
+      include: [{ model: Product }],
     });
     res.status(200).json(getCategoryById);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
-  // be sure to include its associated Products
 });
 
 // create a new category
 router.post("/", async (req, res) => {
   try {
-    const createNewCategory = await Category.create(req.body);
-    req.status(200).json(createNewCategory);
+    const createNewCategory = await Category.create({
+      category_name: req.body.category_name,
+    });
+    res.status(200).json(createNewCategory);
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 });
 
 // update a category by its `id` value
-// ><><><><><><><><><><><><><<><><><><><>< Pass in update values ?
 router.put("/:id", async (req, res) => {
   try {
-    const updateCategoryById = await Category.update(req.body);
-    req.status(200).json(updateCategoryById);
+    const updateCategoryById = await Category.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).json(updateCategoryById);
   } catch (err) {
-    res.status(400).json(err); // <<<<< Is this the correct error code ?
+    console.log(err);
+    res.status(500).json(err);
   }
 });
 

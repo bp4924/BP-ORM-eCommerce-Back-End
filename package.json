@@ -7,17 +7,22 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "watch": "nodemon server.js",
-    "seed": "node seeds/index.js"
+    "seed": "node seeds/index.js",
+    "schema": "mysql -u root -p < db/schema.sql",
+    "restore": "npm run schema && npm run seed"
   },
   "repository": {
     "type": "git",
-    "url": "git@work.github.com:coding-boot-camp/module-13-challenge-orm.git"
+    "url": "https://github.com/bp4924/BP-ORM-eCommerce-Back-End"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Bernie Petters",
+    "email": "bp4924@gmail.com"
+  },
+  "license": "MIT",
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.20"
   },
   "dependencies": {
     "dotenv": "^8.6.0",
