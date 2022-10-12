@@ -27,6 +27,7 @@ router.get("/:id", async (req, res) => {
     });
     res.status(200).json(getCategoryById);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -39,6 +40,7 @@ router.post("/", async (req, res) => {
     });
     res.status(200).json(createNewCategory);
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 });
@@ -53,6 +55,7 @@ router.put("/:id", async (req, res) => {
     });
     res.status(200).json(updateCategoryById);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
