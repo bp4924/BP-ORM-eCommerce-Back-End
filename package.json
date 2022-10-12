@@ -13,11 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@work.github.com:coding-boot-camp/module-13-challenge-orm.git"
+    "url": "https://github.com/bp4924/BP-ORM-eCommerce-Back-End"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Bernie Petters",
+    "email": "bp4924@gmail.com"
+  },
+  "license": "MIT",
   "devDependencies": {
     "nodemon": "^2.0.20"
   },
