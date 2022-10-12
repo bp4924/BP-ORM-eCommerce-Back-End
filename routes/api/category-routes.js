@@ -12,7 +12,6 @@ router.get("/", async (req, res) => {
         attributes: ["id", "product_name", "price", "stock", "category_id"],
       },
     });
-    console.log(getCategoryAllData);
     res.status(200).json(getCategoryAllData);
   } catch (err) {
     res.status(500).json(err);
