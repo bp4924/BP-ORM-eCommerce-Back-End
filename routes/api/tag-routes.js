@@ -31,7 +31,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const createNewTag = await Tag.create(req.body);
-    req.status(200).json(createNewTag);
+    res.status(200).json(createNewTag);
   } catch (err) {
     res.status(400).json(err);
   }
@@ -46,7 +46,7 @@ router.put("/:id", async (req, res) => {
       res.status(404).json({ message: "No tag found with this ID!" });
       return;
     }
-    req.status(200).json(updateTagById);
+    res.status(200).json(updateTagById);
   } catch (err) {
     res.status(500).json(err);
   }

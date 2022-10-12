@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
     const createNewCategory = await Category.create({
       category_name: req.body.category_name,
     });
-    req.status(200).json(createNewCategory);
+    res.status(200).json(createNewCategory);
   } catch (err) {
     res.status(400).json(err);
   }
@@ -51,9 +51,9 @@ router.put("/:id", async (req, res) => {
         id: req.params.id,
       },
     });
-    req.status(200).json(updateCategoryById);
+    res.status(200).json(updateCategoryById);
   } catch (err) {
-    res.status(500).json(err); // <<<<< Is this the correct error code ?
+    res.status(500).json(err);
   }
 });
 
