@@ -6,7 +6,7 @@
 
 ## Description
 
-      This app creates a back-end for an internet retail company, providing vital tools to compete with rival e-commerce companies.
+This app creates a back-end for an internet retail company, providing vital tools to compete with rival e-commerce companies.
 
 ## Table of Contents
 
@@ -34,7 +34,7 @@ NOTE: You will need to have Insomnia installed to test the functionality.
 - Open a terminal and navigate to the appropriate folder.
 - In the terminal, type npm i to create the node_modules folder.
 - Type npm run restore to execute the schema and seed the database (input your MySql password when prompted).
-- Typs npm start to open the server.
+- Type npm start to open the server.
 - Open Insomnia to test the routes.
 
 ## Technologies Used
@@ -52,11 +52,11 @@ Copyright © 2022. All rights reserved.
 
 ## Tests
 
-      None
+None
 
 ## Contributing
 
-      Submit suggestions by creating a new branch on the GitHub repository, or by email using the link below
+Submit suggestions by creating a new branch on the GitHub repository, or by email using the link below.
 
 ## Questions
 
