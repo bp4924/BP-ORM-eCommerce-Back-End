@@ -29,6 +29,8 @@ This app creates a back-end for an internet retail company, providing vital tool
 
 NOTE: You will need to have Insomnia installed to test the functionality.
 
+- Edit .env.EXAMPLE to insert your MySql credentials. Save as ".env"
+
 ## Usage
 
 - Open a terminal and navigate to the appropriate folder.
