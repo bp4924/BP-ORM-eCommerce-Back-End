@@ -72,3 +72,4 @@ Submit suggestions by creating a new branch on the GitHub repository, or by emai
   [berniepetters](https://linkedin.com/in/berniepetters)
 
 ## Demo Video
+https://watch.screencastify.com/v/CezrQxMzXkyMSvaGYd5h
